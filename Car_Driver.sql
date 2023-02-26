@@ -1,0 +1,58 @@
+USE cafy21573;
+
+DROP TABLE Car_Driver;
+DROP TABLE Accident;
+DROP TABLE Driver;
+DROP TABLE Car;
+
+CREATE TABLE Car(Cno INT PRIMARY KEY, Carmodel VARCHAR(30), Ownername VARCHAR(30));
+CREATE TABLE Driver(Drvno INT PRIMARY KEY, Drvname VARCHAR(30), Drvaddr VARCHAR(30), Drvcity VARCHAR(30));
+CREATE TABLE Accident(Ac_id INT PRIMARY KEY, Place VARCHAR(30), Year INT, Cno INT, FOREIGN KEY(Cno) REFERENCES Car(Cno));
+CREATE TABLE Car_Driver(Cno INT, FOREIGN KEY(Cno) REFERENCES CAR(Cno), Drvno INT, FOREIGN KEY(Drvno) REFERENCES Driver(Drvno));
+
+DESC Car;
+DESC Driver;
+DESC Accident;
+DESC Car_Driver;
+
+INSERT INTO Car(Cno, Carmodel, Ownername) VALUES(1, 'XYZW', 'ADITYA');
+INSERT INTO Car(Cno, Carmodel, Ownername) VALUES(2, 'WagnoR', 'PIYUSH');
+INSERT INTO Car(Cno, Carmodel, Ownername) VALUES(3, 'CVGF', 'MRUNMAI');
+INSERT INTO Car(Cno, Carmodel, Ownername) VALUES(4, 'RETY', 'ABHINAV');
+INSERT INTO Car(Cno, Carmodel, Ownername) VALUES(5, 'ERTY', 'ATHARAV');
+
+INSERT INTO Driver(Drvno, Drvname, Drvaddr, Drvcity) VALUES(101, 'SANKET', 'LAXMI ROAD', 'PUNE'); 
+INSERT INTO Driver(Drvno, Drvname, Drvaddr, Drvcity) VALUES(102, 'RAJU', 'KATRAJ', 'PUNE');
+INSERT INTO Driver(Drvno, Drvname, Drvaddr, Drvcity) VALUES(103, 'SANJU', 'SAHAKARNAGAR', 'PUNE');
+INSERT INTO Driver(Drvno, Drvname, Drvaddr, Drvcity) VALUES(104, 'VIJAY', 'DHANKWADI', 'PUNE');
+INSERT INTO Driver(Drvno, Drvname, Drvaddr, Drvcity) VALUES(105, 'KEDAR', 'SWARGATE', 'PUNE');
+
+INSERT INTO Accident(Ac_id, Place, Year, Cno) VALUES(201, 'NEAR LAXMI ROAD', 2000, 1);
+INSERT INTO Accident(Ac_id, Place, Year, Cno) VALUES(202, 'SATARA ROAD', 2018, 2);
+INSERT INTO Accident(Ac_id, Place, Year, Cno) VALUES(203, 'SWARGATE', 2000, 3);
+INSERT INTO Accident(Ac_id, Place, Year, Cno) VALUES(204, 'PUNE', 2018, 4);
+INSERT INTO Accident(Ac_id, Place, Year, Cno) VALUES(205, 'PUNE NAGAR ROAD',2017, 5);
+
+INSERT INTO Car_Driver(Cno, Drvno) VALUES(1, 101);
+INSERT INTO Car_Driver(Cno, Drvno) VALUES(2, 102);
+INSERT INTO Car_Driver(Cno, Drvno) VALUES(3, 103);
+INSERT INTO Car_Driver(Cno, Drvno) VALUES(4, 104);
+INSERT INTO Car_Driver(Cno, Drvno) VALUES(5, 105);
+
+SELECT * FROM Car;
+SELECT * FROM Driver;
+SELECT * FROM Accident;
+SELECT * FROM Car_Driver;
+/*
+SELECT AC_ID, PLACE ,CNO FROM ACCIDENT WHERE YEAR = 2000; 
+
+SELECT D.DRVNO, DRVNAME FROM DRIVER D, ACCIDENT A, CAR_DRIVER CD , CAR C
+WHERE C.CNO = A.CNO AND D.DRVNO = CD.DRVNO AND C.CNO = CD.CNO AND PLACE = 'PUNE';
+
+SELECT PLACE, YEAR FROM ACCIDENT A, CAR C WHERE
+C.CNO = A.CNO AND CARMODEL = 'WagnoR';
+
+SELECT DRVNAME, OWNERNAME FROM DRIVER D, CAR C, ACCIDENT A, CAR_DRIVER CD 
+WHERE C.CNO = A.CNO AND D.DRVNO = CD.DRVNO AND C.CNO = CD.CNO AND PLACE = 'PUNE NAGAR ROAD';
+
+*/
